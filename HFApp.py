@@ -116,15 +116,21 @@ with st.sidebar:
     st.sidebar.markdown("Contact: [aichat101@foxmail.com](mailto:aichat101@foxmail.com)")
     st.sidebar.markdown('WeChat: <span class="blue-underline">pat2win</span>, or scan the code below.', unsafe_allow_html=True)
     st.image(wechat_image)
-    st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)      
-    loader = WebBaseLoader(url)
-    raw_text = loader.load()
-    page_content = raw_text[0].page_content
-    page_content = str(page_content)
-    temp_texts = text_splitter.split_text(page_content)
-    texts = temp_texts
-    initial_embeddings=get_embeddings(texts)
-    db_embeddings = torch.FloatTensor(initial_embeddings) 
+    st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)
+    with st.spinner("Preparing materials for you..."):
+    try:
+        loader = WebBaseLoader(url)
+        raw_text = loader.load()
+        page_content = raw_text[0].page_content
+        page_content = str(page_content)
+        temp_texts = text_splitter.split_text(page_content)
+        texts = temp_texts
+        initial_embeddings=get_embeddings(texts)
+        db_embeddings = torch.FloatTensor(initial_embeddings) 
+    except Exception as e:
+        st.write("Please enter a valide URL.")
+        print("Please enter a valide URL.")
+        st.stop()  
 
 user_question = st.text_input("Enter your website query:")
 #user_question = st.text_input("Enter your question & query CPEG (EN):")
