@@ -117,7 +117,7 @@ with st.sidebar:
     st.sidebar.markdown('WeChat: <span class="blue-underline">pat2win</span>, or scan the code below.', unsafe_allow_html=True)
     st.image(wechat_image)
     st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)
-    with st.spinner("Preparing materials for you..."):
+    with st.spinner("Preparing websit materials for you..."):
         try:
             loader = WebBaseLoader(url)
             raw_text = loader.load()
