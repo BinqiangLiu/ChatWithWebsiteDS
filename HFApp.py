@@ -63,8 +63,10 @@ def generate_random_string(length):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(length))  
     
+text_list = []
 url=""
 texts=""
+raw_text=""
 user_question = ""
 initial_embeddings=""
 db_embeddings = ""
@@ -98,6 +100,13 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
+text_splitter = CharacterTextSplitter(        
+    separator = "\n",
+    chunk_size = 1000,
+    chunk_overlap  = 200, #striding over the text
+    length_function = len,
+)
+
 with st.sidebar:
     url = st.text_input("Insert The website URL")
     st.write("Caution: This app is built based on the English Version of CPEG (2010). For most recent version, please refer to the CNIPA official source.")
@@ -107,28 +116,14 @@ with st.sidebar:
     st.sidebar.markdown('WeChat: <span class="blue-underline">pat2win</span>, or scan the code below.', unsafe_allow_html=True)
     st.image(wechat_image)
     st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)      
-    try:        
-        #loader = WebBaseLoader(url)
-        #data = loader.load()
-        #docs = text_splitter.split_documents(data)
-      with st.spinner("Preparing website materials for you..."):
-            loader = WebBaseLoader(url)
-            raw_text = loader.load()
-#            text_splitter = RecursiveCharacterTextSplitter(        
-            text_splitter = CharacterTextSplitter(        
-                separator = "\n",
-                chunk_size = 1000,
-                chunk_overlap  = 200, #striding over the text
-                length_function = len,
-            )
-            temp_texts = text_splitter.split_text(raw_text)
-            texts = temp_texts
-            initial_embeddings=get_embeddings(texts)
-            db_embeddings = torch.FloatTensor(initial_embeddings) 
-    except Exception as e:
-        st.write("Unknow error.")
-        print("Unknow error.")
-        st.stop()
+    loader = WebBaseLoader(url)
+    raw_text = loader.load()
+    page_content = raw_text[0].page_content
+    page_content = str(page_content)
+    temp_texts = text_splitter.split_text(page_content)
+    texts = temp_texts
+    initial_embeddings=get_embeddings(texts)
+    db_embeddings = torch.FloatTensor(initial_embeddings) 
 
 user_question = st.text_input("Enter your website query:")
 #user_question = st.text_input("Enter your question & query CPEG (EN):")
