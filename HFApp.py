@@ -27,7 +27,7 @@ load_dotenv()
 #st.title('🦜🔗 Chat With Website')
 st.set_page_config(page_title="🦜🔗 Chat With Website", layout="wide")
 st.subheader("🦜🔗 Website AI Chat Assistant")
-st.write('Input your website URL, ask questions, and receive answers directly from the website.')
+#st.write('Input your website URL, ask questions, and receive answers directly from the website.')
 #st.write('---')
 
 css_file = "main.css"
@@ -107,8 +107,7 @@ text_splitter = CharacterTextSplitter(
     length_function = len,
 )
 
-user_question = st.text_input("Enter your website query:")
-#user_question = st.text_input("Enter your question & query CPEG (EN):")
+user_question = st.text_input("Enter your query here and AI-Chat with your website:")
 
 with st.sidebar:
     url = st.text_input("Insert The website URL")
