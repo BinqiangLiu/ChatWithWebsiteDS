@@ -63,6 +63,7 @@ def generate_random_string(length):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(length))  
     
+url=""
 texts=""
 user_question = ""
 initial_embeddings=""
@@ -98,7 +99,7 @@ st.markdown(
 )
 
 with st.sidebar:
-    user_question = st.text_input("Insert The website URL")
+    url = st.text_input("Insert The website URL")
     st.write("Caution: This app is built based on the English Version of CPEG (2010). For most recent version, please refer to the CNIPA official source.")
     st.write("Disclaimer: This app is for information purpose only. NO liability could be claimed against whoever associated with this app in any manner. User should consult a qualified legal professional for legal advice.")
     st.subheader("Enjoy Chatting!")
@@ -107,13 +108,12 @@ with st.sidebar:
     st.image(wechat_image)
     st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)      
     try:        
-        with st.spinner("Preparing website materials for you..."):
-            doc_reader = PdfReader(file_path)
-            raw_text = ''
-            for i, page in enumerate(doc_reader.pages):
-                text = page.extract_text()
-                if text:
-                    raw_text += text
+        #loader = WebBaseLoader(url)
+        #data = loader.load()
+        #docs = text_splitter.split_documents(data)
+      with st.spinner("Preparing website materials for you..."):
+            loader = WebBaseLoader(url)
+            raw_text = loader.load()
 #            text_splitter = RecursiveCharacterTextSplitter(        
             text_splitter = CharacterTextSplitter(        
                 separator = "\n",
@@ -130,16 +130,16 @@ with st.sidebar:
         print("Unknow error.")
         st.stop()
 
-user_question = st.text_input("Insert The website URL")
+user_question = st.text_input("Enter your website query:")
 #user_question = st.text_input("Enter your question & query CPEG (EN):")
 
 if user_question !="":         
     #st.write("Your question: "+user_question)
-    print("Your question: "+user_question)
+    print("Your query: "+user_question)
     print()
 else:
 #    st.write("Please enter your question first.")
-    print("Please enter your question first.")
+    print("Please enter your query first.")
     st.stop()
 
 q_embedding=get_embeddings(user_question)
