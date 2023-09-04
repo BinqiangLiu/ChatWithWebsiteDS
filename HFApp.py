@@ -24,15 +24,11 @@ import string
 from dotenv import load_dotenv
 load_dotenv()
 
-st.title('🦜🔗 Chat With Website')
-st.subheader('Input your website URL, ask questions, and receive answers directly from the website.')
-
-st.set_page_config(page_title="CPEG (EN) AI Chat Assistant", layout="wide")
-st.subheader("China Patent Examination Guideline (EN) AI Chat Assistant")
+#st.title('🦜🔗 Chat With Website')
+st.set_page_config(page_title="🦜🔗 Chat With Website", layout="wide")
+st.subheader("🦜🔗 Website AI Chat Assistant")
+st.write('Input your website URL, ask questions, and receive answers directly from the website.')
 #st.write('---')
-
-
-user_question = st.text_input("Insert The website URL")
 
 css_file = "main.css"
 with open(css_file) as f:
@@ -68,6 +64,7 @@ def generate_random_string(length):
     return ''.join(random.choice(letters) for i in range(length))  
     
 texts=""
+user_question = ""
 initial_embeddings=""
 db_embeddings = ""
 i_file_path=""
@@ -101,26 +98,7 @@ st.markdown(
 )
 
 with st.sidebar:
-    option = st.sidebar.selectbox("Select the content to Chat:", ("TOC: Table of Contents", "Part I: Preliminary Examination", "Part II: Substantive Examination", "Part III: Examination of International Applications Entering the National Phase", "Part IV: Examination of Requests for Reexamination and for Invalidation", "Part V: Processing of Patent Applications and Procedural Matters", "Index", "Annexes"))
-    if option == "TOC: Table of Contents":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENContents.pdf")
-    elif option == "Part I: Preliminary Examination":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENPartI.pdf")
-    elif option == "Part II: Substantive Examination":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENPartII.pdf")
-    elif option == "Part III: Examination of International Applications Entering the National Phase":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENPartIII.pdf")
-    elif option == "Part IV: Examination of Requests for Reexamination and for Invalidation":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENPartIV.pdf")
-    elif option == "Part V: Processing of Patent Applications and Procedural Matters":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENPartV.pdf")
-    elif option == "Index":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENIndex.pdf")
-    elif option == "Annexes":
-        file_path = os.path.join(os.getcwd(), "CPEGFullV2010ENAnnexes.pdf")
-    else:
-        st.write("Choose which part to Chat first.")
-        st.stop()
+    user_question = st.text_input("Insert The website URL")
     st.write("Caution: This app is built based on the English Version of CPEG (2010). For most recent version, please refer to the CNIPA official source.")
     st.write("Disclaimer: This app is for information purpose only. NO liability could be claimed against whoever associated with this app in any manner. User should consult a qualified legal professional for legal advice.")
     st.subheader("Enjoy Chatting!")
@@ -129,7 +107,7 @@ with st.sidebar:
     st.image(wechat_image)
     st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)      
     try:        
-        with st.spinner("Preparing materials for you..."):
+        with st.spinner("Preparing website materials for you..."):
             doc_reader = PdfReader(file_path)
             raw_text = ''
             for i, page in enumerate(doc_reader.pages):
@@ -152,7 +130,8 @@ with st.sidebar:
         print("Unknow error.")
         st.stop()
 
-user_question = st.text_input("Enter your question & query CPEG (EN):")
+user_question = st.text_input("Insert The website URL")
+#user_question = st.text_input("Enter your question & query CPEG (EN):")
 
 if user_question !="":         
     #st.write("Your question: "+user_question)
