@@ -3,6 +3,7 @@
 import os
 import streamlit as st
 from dotenv import load_dotenv
+from langchain.chains.question_answering import load_qa_chain
 from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import WebBaseLoader
@@ -12,23 +13,57 @@ from langchain.prompts.chat import (ChatPromptTemplate,
                                     SystemMessagePromptTemplate)
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
-
+from langchain import PromptTemplate, LLMChain
+from langchain import HuggingFaceHub
+from PyPDF2 import PdfReader
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.document_loaders import TextLoader
+import requests
+from pathlib import Path
+from time import sleep
+import torch
+import random
+import string
+from dotenv import load_dotenv
 # Load environment variables from .env file (Optional)
 load_dotenv()
 
-OPENAI_API_KEY= os.getenv("OPENAI_API_KEY")
+#OPENAI_API_KEY= os.getenv("OPENAI_API_KEY")
 
-system_template = """Use the following pieces of context to answer the users question.
-If you don't know the answer, just say that you don't know, don't try to make up an answer.
-"""
+HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
+model_id = os.getenv('model_id')
+hf_token = os.getenv('hf_token')
+repo_id = os.getenv('repo_id')
+HUGGINGFACEHUB_API_TOKEN = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
+model_id = os.environ.get('model_id')
+hf_token = os.environ.get('hf_token')
+repo_id = os.environ.get('repo_id')
 
-messages = [
-    SystemMessagePromptTemplate.from_template(system_template),
-    HumanMessagePromptTemplate.from_template("{question}"),
-]
-prompt = ChatPromptTemplate.from_messages(messages)
-chain_type_kwargs = {"prompt": prompt}
+api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
+headers = {"Authorization": f"Bearer {hf_token}"}
 
+def get_embeddings(input_str_texts):
+    response = requests.post(api_url, headers=headers, json={"inputs": input_str_texts, "options":{"wait_for_model":True}})
+    return response.json()
+
+llm = HuggingFaceHub(repo_id=repo_id,
+                     model_kwargs={"min_length":100,
+                                   "max_new_tokens":1024, "do_sample":True,
+                                   "temperature":0.1,
+                                   "top_k":50,
+                                   "top_p":0.95, "eos_token_id":49155})
+
+chain = load_qa_chain(llm=llm, chain_type="stuff")
+
+def generate_random_string(length):
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(length))  
+
+texts=""
+initial_embeddings=""
+db_embeddings = ""
+i_file_path=""
+file_path = ""
 
 def main():
     # Set the title and subtitle of the app
