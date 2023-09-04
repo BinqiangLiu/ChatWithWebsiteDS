@@ -6,8 +6,6 @@ from langchain.document_loaders import WebBaseLoader
 from langchain.prompts.chat import (ChatPromptTemplate,
                                     HumanMessagePromptTemplate,
                                     SystemMessagePromptTemplate)
-#from langchain.vectorstores import Chroma
-import streamlit as st
 from langchain.chains.question_answering import load_qa_chain
 from langchain import PromptTemplate, LLMChain
 from langchain import HuggingFaceHub
