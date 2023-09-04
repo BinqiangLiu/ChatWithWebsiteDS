@@ -117,7 +117,7 @@ with st.sidebar:
     st.sidebar.markdown('WeChat: <span class="blue-underline">pat2win</span>, or scan the code below.', unsafe_allow_html=True)
     st.image(wechat_image)
     st.sidebar.markdown('<span class="blue-underline">Life Enhancing with AI.</span>', unsafe_allow_html=True)
-    with st.spinner("Preparing websit materials for you..."):
+    with st.spinner("Preparing materials for you..."):
         try:
             loader = WebBaseLoader(url)
             raw_text = loader.load()
@@ -132,27 +132,14 @@ with st.sidebar:
             print("Please enter a valide URL.")
             st.stop()  
 
-while True:
-    try:
-        if question.strip().isspace():
-            st.write("Query Empty. Please enter valid query first.")
-            break
-        elif question == "":
-            st.write("Query Empty. Please enter valid query first.")
-            break
-        elif question.strip() == "":
-            st.write("Query Empty. Please enter valid query first.")
-            break
-        elif question.isspace():
-            st.write("Query Empty. Please enter valid query first.")
-            break
-        elif question=="exit":
-            break
-        elif question!="":
-          print("Your query: "+user_question)
-          print() 
-    except Exception as e:
-        st.stop()
+if user_question !="":         
+    #st.write("Your question: "+user_question)
+    print("Your query: "+user_question)
+    print()
+else:
+#    st.write("Please enter your question first.")
+    print("Please enter your query first.")
+    st.stop()
 
 q_embedding=get_embeddings(user_question)
 final_q_embedding = torch.FloatTensor(q_embedding)
