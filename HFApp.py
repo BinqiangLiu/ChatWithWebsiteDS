@@ -107,6 +107,9 @@ text_splitter = CharacterTextSplitter(
     length_function = len,
 )
 
+user_question = st.text_input("Enter your website query:")
+#user_question = st.text_input("Enter your question & query CPEG (EN):")
+
 with st.sidebar:
     url = st.text_input("Insert The website URL")
     print("You want to chat with: "+url)
@@ -131,9 +134,6 @@ with st.sidebar:
             st.write("Please enter a valide URL.")
             print("Please enter a valide URL.")
             st.stop()  
-
-user_question = st.text_input("Enter your website query:")
-#user_question = st.text_input("Enter your question & query CPEG (EN):")
 
 if user_question !="":         
     #st.write("Your question: "+user_question)
