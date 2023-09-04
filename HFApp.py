@@ -111,18 +111,18 @@ with st.sidebar:
     url = st.text_input("Insert The website URL")
     print("You want to chat with: "+url)
     if url.strip().isspace(): 
-      st.write("Please enter valid URL first.")
-      break
+        st.write("Please enter valid URL first.")
+        break
     elif url == "":
-      break
+        break
     elif url.strip() == "":
-      st.write("Please enter valid URL first..")
-      break
+        st.write("Please enter valid URL first..")
+        break
     elif url.isspace():
-      st.write("Please enter valid URL first..")
-      break
+        st.write("Please enter valid URL first..")
+        break
     elif url=="exit":
-      break
+        break
 #    st.write("Caution: This app is built based on the English Version of CPEG (2010). For most recent version, please refer to the CNIPA official source.")
     st.write("Disclaimer: This app is for information purpose only. NO liability could be claimed against whoever associated with this app in any manner. User should consult a qualified legal professional for legal advice.")
     st.subheader("Enjoy Chatting!")
