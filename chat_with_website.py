@@ -1,5 +1,6 @@
-import os
+#https://www.youtube.com/watch?v=ZlwtYmKlL_0
 
+import os
 import streamlit as st
 from dotenv import load_dotenv
 from langchain.chains import RetrievalQA
