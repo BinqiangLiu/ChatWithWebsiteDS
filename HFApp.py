@@ -132,14 +132,27 @@ with st.sidebar:
             print("Please enter a valide URL.")
             st.stop()  
 
-if user_question !="":         
-    #st.write("Your question: "+user_question)
-    print("Your query: "+user_question)
-    print()
-else:
-#    st.write("Please enter your question first.")
-    print("Please enter your query first.")
-    st.stop()
+while True:
+    try:
+        if question.strip().isspace():
+            st.write("Query Empty. Please enter valid query first.")
+            break
+        elif question == "":
+            st.write("Query Empty. Please enter valid query first.")
+            break
+        elif question.strip() == "":
+            st.write("Query Empty. Please enter valid query first.")
+            break
+        elif question.isspace():
+            st.write("Query Empty. Please enter valid query first.")
+            break
+        elif question=="exit":
+            break
+        elif question!="":
+          print("Your query: "+user_question)
+          print() 
+    except Exception as e:
+        st.stop()
 
 q_embedding=get_embeddings(user_question)
 final_q_embedding = torch.FloatTensor(q_embedding)
