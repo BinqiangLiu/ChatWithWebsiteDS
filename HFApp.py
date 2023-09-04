@@ -38,10 +38,10 @@ HUGGINGFACEHUB_API_TOKEN = os.getenv('HUGGINGFACEHUB_API_TOKEN')
 model_id = os.getenv('model_id')
 hf_token = os.getenv('hf_token')
 repo_id = os.getenv('repo_id')
-HUGGINGFACEHUB_API_TOKEN = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
-model_id = os.environ.get('model_id')
-hf_token = os.environ.get('hf_token')
-repo_id = os.environ.get('repo_id')
+#HUGGINGFACEHUB_API_TOKEN = os.environ.get('HUGGINGFACEHUB_API_TOKEN')
+#model_id = os.environ.get('model_id')
+#hf_token = os.environ.get('hf_token')
+#repo_id = os.environ.get('repo_id')
 
 api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
 headers = {"Authorization": f"Bearer {hf_token}"}
