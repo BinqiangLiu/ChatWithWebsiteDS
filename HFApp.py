@@ -131,15 +131,19 @@ with st.sidebar:
             st.write("Please enter a valide URL.")
             print("Please enter a valide URL.")
             st.stop()  
-
-if user_question !="":         
+          
+if user_question.strip().isspace() or user_question.strip() == "" or user_question.isspace():
+    st.write("Query Empty. Please enter a valid query first.")
+    st.stop()
+elif user_question == "exit":
+    st.stop()
+elif user_question == "":
+    print("Query Empty. Please enter a valid query first.")
+    st.stop()
+elif user_question != "":     
     #st.write("Your question: "+user_question)
     print("Your query: "+user_question)
     print()
-else:
-#    st.write("Please enter your question first.")
-    print("Please enter your query first.")
-    st.stop()
 
 q_embedding=get_embeddings(user_question)
 final_q_embedding = torch.FloatTensor(q_embedding)
