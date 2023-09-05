@@ -28,7 +28,7 @@ messages = [
     HumanMessagePromptTemplate.from_template("{question}"),
 ]
 prompt = ChatPromptTemplate.from_messages(messages)
-#chain_type_kwargs = {"prompt": prompt}
+chain_type_kwargs = {"prompt": prompt}
 
 
 def main():
@@ -71,12 +71,12 @@ def main():
         llm = ChatOpenAI(model_name='gpt-3.5-turbo')
 
         # Create a RetrievalQA from the model and retriever
-        #qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
-        qa = load_qa_chain(llm=llm, chain_type="stuff")
+        qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+        #qa = load_qa_chain(llm=llm, chain_type="stuff")
 
         # Run the prompt and return the response
-        #response = qa(prompt)
-        response=qa.run(input_documents=retriever, question=prompt)
+        response = qa(prompt)
+        #response=qa.run(input_documents=retriever, question=prompt)
         st.write(response)
         
 
