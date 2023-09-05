@@ -28,7 +28,7 @@ messages = [
     HumanMessagePromptTemplate.from_template("{question}"),
 ]
 prompt = ChatPromptTemplate.from_messages(messages)
-chain_type_kwargs = {"prompt": prompt}
+#chain_type_kwargs = {"prompt": prompt}
 
 
 def main():
