@@ -128,7 +128,7 @@ with st.sidebar:
             print("Please enter a valide URL.")
             st.stop()  
           
-if user_question.strip().isspace() or user_question.strip() == "" or user_question.isspace():
+if user_question.strip().isspace() or user_question.isspace():
     st.write("Query Empty. Please enter a valid query first.")
     st.stop()
 elif user_question == "exit":
