@@ -110,7 +110,7 @@ with st.sidebar:
     print("You want to chat with: "+url)
     st.write("Note & Disclaimer: This app is provided on open source framework and is for information purpose only.")
     st.write("NO guarantee is offered regarding information accuracy.")
-    st.write("NO liability could be claimed against \n whoever associated with this app in any manner.")
+    st.write("NO liability could be \n claimed against whoever associated with this app in any manner.")
     st.write("User should consult a qualified legal professional for legal advice.")
     st.sidebar.markdown("Contact: [aichat101@foxmail.com](mailto:aichat101@foxmail.com)")
     st.sidebar.markdown('WeChat: <span class="blue-underline">pat2win</span>, or scan the code below.', unsafe_allow_html=True)
