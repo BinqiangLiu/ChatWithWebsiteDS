@@ -76,7 +76,7 @@ def main():
 
         # Run the prompt and return the response
         #response = qa(prompt)
-        response=chain.run(input_documents=retriever, question=prompt)
+        response=qa.run(input_documents=retriever, question=prompt)
         st.write(response)
         
 
