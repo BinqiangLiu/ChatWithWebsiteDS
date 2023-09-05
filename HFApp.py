@@ -106,7 +106,7 @@ text_splitter = CharacterTextSplitter(
 
 with st.sidebar:
     st.subheader("Enter website URL to AI-Chat!")    
-    url = st.text_input()
+    url = st.text_input("")
     print("You want to chat with: "+url)
     st.write("Disclaimer: This app is for information purpose only. NO liability could be claimed against whoever associated with this app in any manner. User should consult a qualified legal professional for legal advice.")
     st.subheader("Enjoy Chatting!")
